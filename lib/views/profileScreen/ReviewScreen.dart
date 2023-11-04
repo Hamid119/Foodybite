@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../Data/data.dart';
+import '../../utils/appColors.dart';
+import '../../utils/appConst.dart';
+import '../../widgets/buildAppBar.dart';
+import '../../widgets/ratingContainer.dart';
+
+class ReviewScreen extends StatefulWidget {
+  @override
+  _ReviewScreenState createState() => _ReviewScreenState();
+}
+
+class _ReviewScreenState extends State<ReviewScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: buildAppBar(title: 'Review', color: kDarkTextColor),
+      body: Container(
+        width: Get.width,
+        height: Get.height * 1,
+        child: ListView.builder(
+            itemCount: reviewModel.length,
+            itemBuilder: (context, i) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Container(
+                  width: Get.width,
+                  child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        child: Image.asset(
+                          reviewModel[i].image!,
+                          width: Get.width * 0.16,
+                        ),
+                      ),
+                    ),
+                    // CircleAvatar(
+                    //   backgroundImage: AssetImage(
+                    //     reviewModel[i].image,
+                    //   ),
+                    //   radius: 30,
+                    // ),
+                    title: Text(
+                      reviewModel[i].name!,
+                      style: kTextStyle.copyWith(
+                          fontSize: Get.height * 0.02,
+                          fontWeight: FontWeight.bold,
+                          color: kDarkTextColor),
+                    ),
+                    subtitle: Text(
+                      reviewModel[i].title!,
+                      style: kTextStyle.copyWith(
+                          fontSize: Get.height * 0.02,
+                          fontWeight: FontWeight.bold,
+                          color: kTextColor),
+                    ),
+                    trailing: Container(
+                        width: Get.width * 0.16,
+                        child: ratingContainer(reviewModel[i].rating!)),
+                  ),
+                ),
+              );
+            }),
+      ),
+    );
+  }
+}
